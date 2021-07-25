@@ -116,6 +116,7 @@ public class PayService {
             String money = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
             //时间
 
+        
         System.out.println("购买金额:"+money);
         System.out.println("订单号:"+trade_no);
 
