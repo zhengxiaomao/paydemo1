@@ -8,7 +8,10 @@ import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.api.response.AlipayTradePagePayResponse;
 import com.example.paydemo1.config.AliDevPayConfig;
+import com.example.paydemo1.dao.OrderDao;
+import com.example.paydemo1.model.Order;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -29,6 +32,11 @@ public class PayService {
 //    private UserRoleRepository userRoleRepository;
 //    @Autowired
 //    private UserRepository userRepository;
+      @Autowired
+      Order order;
+      @Autowired
+      OrderDao orderDao;
+
     /**
      * 调用支付宝接口
      * @return
@@ -115,10 +123,10 @@ public class PayService {
             //金额
             String money = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
             //时间
-
-        
-        System.out.println("购买金额:"+money);
-        System.out.println("订单号:"+trade_no);
+            String gmt_create = new String(request.getParameter("gmt_create").getBytes("ISO-8859-1"),"UTF-8");
+            order.setCreateTime(gmt_create);
+            order.setOrderId(trade_no);
+            order.setTotalMoney(money);
 
 //        }
 
